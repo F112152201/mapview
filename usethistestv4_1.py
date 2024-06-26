@@ -187,7 +187,7 @@ def show_map():
         # 提取地名
         def extract_location(text):
             # 使用 OpenAI API 來提取地名
-            response = openai.ChatCompletion.create(
+            chat_completion = client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": "你是一個地理位置提取助手"},
