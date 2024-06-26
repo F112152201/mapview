@@ -24,6 +24,8 @@ else:
 conn = sqlite3.connect('account.db')
 c = conn.cursor()
 
+client = openai(openai_api_key=openai_api_key)
+
 # 創建或修改 users 表格
 c.execute('''
     CREATE TABLE IF NOT EXISTS users (
@@ -36,6 +38,7 @@ c.execute('''
 ''')
 
 conn.commit()
+
 
 def add_user(username, password):
     try:
@@ -171,8 +174,8 @@ def show_map():
 
     if user_input:
         # 呼叫 OpenAI API 並顯示回應
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+        chat_completion = client.chat.completions.create(
+            model="gpt-4o-turbo",
             messages=[
                 {"role": "system", "content": "你是一個地理助手"},
                 {"role": "user", "content": user_input}
